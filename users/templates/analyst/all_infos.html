@@ -1,0 +1,112 @@
+{% extends 'analyst/base.html' %}
+{% load static %}
+{% block title %}Informations{% endblock title %}
+
+{% block main-content %}
+<div class="pagetitle">
+    <h1>Informations</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Accueil</a></li>
+        <li class="breadcrumb-item">Informations</li>
+        <li class="breadcrumb-item active">Les Informations</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+    
+              <div class="card">
+                <h5 class="card-title"></h5>
+                  <div class="d-flex justify-content-between align-items-center mb-5 mx-5">
+                      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                          Catégories
+                          <strong> <span class="d-none d-md-block dropdown-toggle ps-2">{{init_fp.label}}</span></strong>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                          {% for fp in fps %}
+                          <li>
+                              <a class="dropdown-item d-flex align-items-center" href="{% url 'analyst_all_infos' fp.id%}">
+                              <span>{{fp.label}}</span>
+                              </a>
+                          </li>
+                          <li>
+                              <hr class="dropdown-divider">
+                          </li>
+                          {% endfor %}
+                      </ul><!-- End Profile Dropdown Items -->
+                  
+                      
+                     
+                  </div>
+                <div class="card-body">
+
+                    <table id="example" class="table table-striped datatable table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Catégorie</th>
+                                <th>Publié le</th>
+                                <th>Modifié le</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for info in infos %}
+                         
+                                <tr>
+                                    <td>{{info.title}}</td>
+
+                                    <td>{{info.categorie}}</td>
+                                    
+                                    <td>
+                                        {% if info.is_published %}
+                                            {{info.published_at|date:"d/m/Y"}}</td>
+                                        {% else %}
+                                            Non publiée
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{info.updated_at|date:"d/m/Y"}}</td>
+                                   
+                                    <div class="modal fade" id="exampleModal{{info.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog card" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Publier</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                
+                                                <form method= 'post' class="modal-body" action="{% url 'publier_information' info.id %}" novalidate>
+                                                    {% csrf_token %}
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Sélectionnez les points focaux destinataires</h5>
+                                                        {{form.as_p}}
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary w-100">Publier</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+  
+        </div>
+</section>
+{% endblock main-content %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% endblock scripts %}
+
+  

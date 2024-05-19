@@ -1,0 +1,132 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Utilisateurs systèmes{% endblock title %}
+
+{% block main-content %}
+
+<div class="pagetitle">
+    <h1>Utilisateurs systèmes</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin_home' %}">Accueil</a></li>
+        <li class="breadcrumb-item">Utilisateurs systèmes</li>
+        <li class="breadcrumb-item active">Administrateurs CAERT</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Administrateurs CAERT</h5> 
+                            <a href="{% url 'add_admin' %}" type="button" class="btn btn-primary">
+                                <i class="bi bi-plus"></i><span>Nouveau</span>
+                            </a>
+                        </div>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable" id="general">
+                            <thead> 
+                                <tr>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Nom Prénoms</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Departement</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ad in admins %}
+                                <tr id='{{ ad.id }}'>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ad.get_full_name}}</td>
+                                    <td>{{ad.email}}</td>
+                                    <td>{{ad.departement}}</td>
+                                    <td >
+                                        {% if ad.is_active%}
+                                        <a href="{% url 'disable_user' ad.id %}" class="btn btn-success bi bi-check-circle icon-active" style="width: 93px !important;"> Actif</a>
+                                        {% else %}
+                                        <a href="{% url 'enable_user' ad.id %}" class="btn btn-secondary bi bi-x-circle icon-inactive" > Inactif</a>
+                                        {% endif %}
+                                    </td>
+                                    <td >
+                                        <a href="{% url 'edit_admin_caert' ad.id %}"  type="button" class="btn btn-primary btn-xs" title="Modifier"><i class="bi bi-pen"></i></a> 
+                                        
+                                        <a href="{% url 'delete_admin_caert' ad.id %}" class="btn btn-danger" ><i class="bi bi-trash"></i></a>
+                                        <!-- <button href="" type="button" onclick="supprimer({{ ad.id }})" class="btn btn-danger" title="Supprimer"><i class="bi bi-trash"></i></button>  -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+        
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+{% endblock main-content %}   
+
+{% block scripts %}
+    <script defer>
+    
+    function supprimer(itemId) {
+        // Affiche une alerte de confirmation
+        Swal.fire({
+            title: "Êtes-vous sûr?",
+            text: "Cette action ne peut pas être annulée.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Oui, supprimer!",
+            cancelButtonText: "Annuler",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Envoie la requête DELETE via Axios à l'API pour supprimer l'élément
+                fetch(`/delete_admin/${itemId}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"), // Assurez-vous d'ajuster le nom du cookie CSRF
+                    },
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        // L'élément a été supprimé avec succès
+                        console.log('coucou')
+                        console.log(itemId)
+                        //document.getElementById(itemId).outerHTML = "";
+                            location.reload();
+                    } else {
+                        Swal.fire("Erreur!", data.error, "error");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Erreur :", error);
+                });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Si l'utilisateur annule, affiche une alerte d'annulation
+                Swal.fire("Annulé", "L'élément n'a pas été supprimé.", "info");
+                }
+            // Fonction pour obtenir la valeur du cookie CSRF
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+        });
+    }
+    </script>
+
+    {% comment %} <script src="{% static 'assets/js/showGroupe.js' %}"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21/dist/axios.min.js"></script>
+{% endblock scripts%}

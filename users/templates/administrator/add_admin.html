@@ -1,0 +1,66 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Ajouter un nouveau{% endblock title %}
+
+{% block main-content %}
+  
+<section class="section">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-body">                 
+                    {% if not edit %}
+                    <h5 class="card-title">Aujouter un nouvel Administrateur</h5>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Le mot de passe par défaut est <span class="color-success"><strong>'administrateur'</strong></span>. Pour des raison de sécurité, l'utilisateur concerné se doit de le modifier avant d'avoir accès à la plateforme.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% else %}
+                    <h5 class="card-title">Modification</h5>
+                    {% endif %}
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-4 col-form-label">Adresse email</label>
+                            <div class="col-sm-8">
+                                {{form.email}}
+                                <small class="text-danger">{{form.email.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Nom</label>
+                            <div class="col-sm-8">
+                                {{form.nom}}
+                                <small class="text-danger">{{form.nom.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-4 col-form-label">Prénoms</label>
+                            <div class="col-sm-8">
+                                {{form.prenom}}
+                                <small class="text-danger">{{form.prenom.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPassword" class="col-sm-4 col-form-label">Département</label>
+                            <div class="col-sm-8">
+                                {{form.departement}}
+                                <small class="text-danger">{{form.departement.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary w-100">Valider</button>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

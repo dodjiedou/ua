@@ -1,0 +1,51 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}
+    {% if not edit %}                
+        <h5 class="card-title">Ajouter un nouveau</h5>
+    {% else %}                
+        <h5 class="card-title">Modification</h5>
+    {% endif %}
+{% endblock title %}
+
+{% block main-content %}
+  
+<section class="section">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-body"> 
+                    {% if not edit %}                
+                    <h5 class="card-title">Aujouter une nouvelle information</h5>
+                    {% else %}                
+                    <h5 class="card-title">Modification</h5>
+                    {% endif %}  
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                            <div class="col-sm-8">
+                                {{ field }}
+                                <small class="text-danger">{{ field.errors }}</small>
+                                <br>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col text-center">
+                                {% if not edit %}                
+                                <button type="submit" class="btn btn-primary w-100">Valider</button>
+                                {% else %}                
+                                <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

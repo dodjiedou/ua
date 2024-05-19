@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ajouter un nouveau{% endblock title %}
+
+{% block main-content %}
+    <div id="ex1" class="modal">
+        <section class="section">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="card">
+                        <div class="card-body">                 
+                            <h5 class="card-title">Modifier</h5>
+                            <form action="" method="post" novalidate>
+                                {% csrf_token %}
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-4 col-form-label">Nom du point focal</label>
+                                    <div class="col-sm-8">
+                                        {{form.name}}
+                                        <small class="text-danger">{{form.name.errors|striptags}}</small>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-4 col-form-label">Pays concerné</label>
+                                    <div class="col-sm-8">
+                                        {{form.country}}
+                                        <small class="text-danger">{{form.country.errors|striptags}}</small>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail" class="col-sm-4 col-form-label">Adresse email associée</label>
+                                    <div class="col-sm-8">
+                                        {{form.email}}
+                                        <small class="text-danger">{{form.email.errors|striptags}}</small>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword" class="col-sm-4 col-form-label">Code d'accès associé</label>
+                                    <div class="col-sm-8">
+                                        {{form.access_code}}
+                                        <small class="text-danger">{{form.access_code.errors|striptags}}</small>
+                                        <br>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button type="submit" class="btn btn-primary w-100">Valider</button>
+                                    </div>
+                                </div>
+                            </form><!-- End General Form Elements -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main-content %}

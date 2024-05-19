@@ -1,0 +1,101 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Utilisateurs systèmes{% endblock title %}
+
+{% block main-content %}
+
+<div class="pagetitle">
+    <h1>Utilisateurs systèmes</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin_home' %}">Accueil</a></li>
+        <li class="breadcrumb-item">Utilisateurs systèmes</li>
+        <li class="breadcrumb-item active">Managers</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Managers</h5>
+                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-geo-alt"></i>Point focal
+                                <strong> <span class="d-none d-md-block dropdown-toggle ps-2">{{init_fp.name}}</span></strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                                {% for fp in fps %}
+                                  <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'all_manager_fp' fp.id%}">
+                                      <i class="bi bi-person"></i>
+                                      <span>{{fp.name}}</span>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                {% endfor %}
+                            </ul><!-- End Profile Dropdown Items -->
+                           
+                            
+                              <a href="{% url 'add_manager'%}" type="button" class="btn btn-primary">
+                                <i class="bi bi-plus"></i><span>Nouveau</span>
+                              </a>
+                        </div>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable" id="general">
+                            <thead> 
+                                <tr>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Nom Prénoms</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Departement</th>
+                                    <th scope="col">Date de naissance</th>
+                                    <th scope="col">Date d'admission</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ad in managers %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ad.get_full_name}}</td>
+                                    <td>{{ad.email}}</td>
+                                    <td>{{ad.departement}}</td>
+                                    <td>{{ad.date_of_birth|date:"d/m/Y"}}</td>
+                                    <td>{{ad.created_at|date:"d/m/Y"}}</td>
+
+                                    <td >
+                                        <a href="{% url 'edit_manager' ad.id %}"  type="button" class="btn btn-primary btn-xs" title="Modifier" style="width: 40px;"><i class="bi bi-pen"></i></a> 
+
+                                        <a href="{% url 'delete_manager' ad.id %}"  type="button" class="btn btn-danger" title="Supprimer"  style="width: 40px;"><i class="bi bi-trash"></i></a> 
+                                    
+                                        <!-- <button href="" type="button" onclick="" class="btn btn-danger" title="Supprimer"  style="width: 40px;"><i class="bi bi-trash" ></i></button>  -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+        
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+{% endblock main-content %}   
+
+{% block scripts %}
+    
+
+    {% comment %} <script src="{% static 'assets/js/showGroupe.js' %}"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21/dist/axios.min.js"></script>
+{% endblock scripts%}

@@ -1,0 +1,80 @@
+{% load static %}
+<!-- ======= Sidebar ======= -->
+
+<aside id="sidebar" class="sidebar" style="background-color: rgba(242, 239, 58, 0.61);">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'staff_home'%}">
+          <i class="bi bi-grid"></i>
+          <span>Tableau de bord</span>
+        </a>
+      </li>
+        
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'staff_all_member' %}"> 
+              <i class="bi bi-circle"></i><span>Liste des membres</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+          
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#info-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-info-circle"></i><span>Informations</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="info-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'staff_all_infos' %}"> 
+              <i class="bi bi-circle"></i><span>Liste des informations</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'staff_all_alerts'%}"> 
+          <i class="bi bi-exclamation-triangle"></i>
+          <span>Liste des alertes</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'staff_forum' %}"> 
+          <i class="bi bi-chat-right-text"></i>
+          <span>Forum</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">
+        <i class="bi bi-gear-fill"></i>
+        Parametres
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+        <!-- <a class="nav-link collapsed" href="{% url 'user_profile' %}">   -->
+          <i class="bi bi-person"></i>
+          <span>Mon profil</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'logout' %}"> 
+          <i class="bi bi-box-arrow-in-left"></i>
+          <span>Déconnexion</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+

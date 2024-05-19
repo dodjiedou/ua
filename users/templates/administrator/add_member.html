@@ -1,0 +1,40 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Ajouter un nouveau membre{% endblock title %}
+
+{% block main-content %}
+  
+<section class="section">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-body">   
+                    <h5 class="card-title">Aujouter un nouveau membre</h5>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Le mot de passe par défaut est <span class="color-success"><strong>'member_001'</strong></span>. Pour des raison de sécurité, le manager concerné se doit de le modifier avant d'avoir accès à la plateforme.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                            <div class="col-sm-8">
+                                {{ field }}
+                                <small class="text-danger">{{ field.errors }}</small>
+                                <br>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary w-100">Valider</button>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

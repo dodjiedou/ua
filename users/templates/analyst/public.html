@@ -1,0 +1,63 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Ajouter un nouveau{% endblock title %}
+
+{% block main-content %}
+
+    <div class="pagetitle">
+        <h1>Ajouter un nouveau</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item">Informations</li>
+                <li class="breadcrumb-item active">Publier</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+  
+<section class="section">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-4 col-form-label">Qui peut voir cette publication ?</label>
+                            <div class="col-sm-8">
+                                {{form.focalpoint}}
+                                <small class="text-danger">{{form.focalpoint.errors|striptags}}</small>
+                                <br>
+                            </div>
+                            <label for="inputText" class="col-sm-4 col-form-label">Titre</label>
+                            <div class="col-sm-8">
+                                {{form.title}}
+                                <small class="text-danger">{{form.title.errors|striptags}}</small>
+                                <br>
+                            </div>
+                            <label for="inputText" class="col-sm-4 col-form-label">Catégorie</label>
+                            <div class="col-sm-8">
+                                {{form.categorie}}
+                                <small class="text-danger">{{form.categorie.errors|striptags}}</small>
+                                <br>
+                            </div>
+                            <label for="inputText" class="col-sm-4 col-form-label">Description</label>
+                            <div class="col-sm-8">
+                                {{form.description}}
+                                <small class="text-danger">{{form.description.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary w-100">Publier</button>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

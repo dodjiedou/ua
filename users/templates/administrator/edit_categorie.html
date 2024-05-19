@@ -1,0 +1,50 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}Modification{% endblock title %}
+
+{% block main-content %}
+
+    <div class="pagetitle">  
+        <h1>Modification</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Accueil</a></li>
+                <li class="breadcrumb-item">Categorie</li>
+                <li class="breadcrumb-item active">Modification</li>
+            </ol>
+        </nav>
+
+    </div><!-- End Page Title -->
+
+  
+<section class="section">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-body"> 
+               
+                    <h5 class="card-title">Modification </h5>
+
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-4 col-form-label">Nom de la categorie</label>
+                            <div class="col-sm-8">
+                                {{form.label}}
+                                <small class="text-danger">{{form.name.errors|striptags}}</small>
+                                <br>
+                            </div>
+                        </div>                       
+                        
+                        <div class="row">
+                            <div class="col text-center">               
+                                <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}
